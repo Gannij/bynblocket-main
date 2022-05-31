@@ -10,7 +10,7 @@ export default function ProductDetail() {
   let navigate = useNavigate();
 
   // a local state only for this component
-  let l = useState ({
+  let l = useStates({
     captureMode: true
   })
 
@@ -25,7 +25,7 @@ export default function ProductDetail() {
     navigate(`/product-detail/${id}`);
   }
 
-  function captureImage () {
+  function captureImage() {
     alert('HELLO');
   }
 
@@ -44,10 +44,10 @@ export default function ProductDetail() {
     <Container className='product-edit'>
       {/* Online */}
       <Row><Col>
-      <video style={{ display: l.captureMode ? 'block' : 'none' }} autoPlay></video>
-      <canvas style={{ display: !l.captureMode ? 'block' : 'none' }}></canvas>
-      <button className ='btn btn -primary mt-3, mb -5' onClick={(captureImage)}>Capture</button>
-        </Col></Row>
+        <video style={{ display: l.captureMode ? 'block' : 'none' }} autoPlay></video>
+        <canvas style={{ display: !l.captureMode ? 'block' : 'none' }}></canvas>
+        <button className='btn btn -primary mt-3, mb -5' onClick={(captureImage)}>Capture</button>
+      </Col></Row>
       <Row><Col><h1>{name}</h1></Col></Row>
       <Row><Col><p>{description}</p></Col></Row>
       <Row><Col><p>Price: ${price}</p></Col></Row>

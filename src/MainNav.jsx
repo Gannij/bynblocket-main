@@ -16,7 +16,7 @@ export default function MainNav() {
 
   return <Navbar fixed="top" bg="dark" variant="dark" expand="lg" className="mb-4">
     <Container>
-      <Link className="navbar-brand" to="/">My Shop</Link>
+      <Link className="navbar-brand" to="/">BynBlocket</Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
