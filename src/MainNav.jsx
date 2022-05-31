@@ -10,7 +10,8 @@ export default function MainNav() {
   let links = [
     ['Welcome', '/'],
     ['Product List', '/product-list'],
-    ['Shopping-cart', '/shopping-cart']
+    ['Shopping-cart', '/shopping-cart'],
+    ['Back-office', '/back-office']
   ];
 
   return <Navbar fixed="top" bg="dark" variant="dark" expand="lg" className="mb-4">
