@@ -15,6 +15,7 @@ import StartPage from './StartPage';
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
 import ProductEdit from './ProductEdit';
+import ProductAdd from './ProductAdd';
 import ShoppingCart from './ShoppingCart'
 import BackOffice from './BackOffice';
 
@@ -52,7 +53,8 @@ export default function App() {
         <Route path="/" element={<StartPage />} />
         <Route path="/product-list" element={<ProductList />} />
         <Route path="/product-detail/:id" element={<ProductDetail />} />
-        <Route path="/product-edit/:id" element={<ProductEdit />} />
+        <Route path="/back-office/product-edit/:id" element={<ProductEdit />} />
+        <Route path="/back-office/product-add" element={<ProductAdd />} />
         <Route path="/shopping-cart" element={<ShoppingCart />} />
         <Route path="/back-office" element={<BackOffice />} />
       </Routes>
