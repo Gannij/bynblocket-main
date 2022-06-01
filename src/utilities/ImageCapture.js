@@ -11,7 +11,7 @@ if (!('getUserMedia' in navigator.mediaDevices)) {
     navigator.mediaDevices.getUserMedia = function (constraints) {
         let getUserMedia = navigator.webkitGetUserMedia || navigator.mozUserMedia;
 
-        i (!getUserMedia) {
+        if (!getUserMedia) {
             return Promise.reject(new Error('getUserMedia is not implemented!'));
         }
         
@@ -20,7 +20,6 @@ if (!('getUserMedia' in navigator.mediaDevices)) {
                 getUserMedia.call(navigator, constraints, resolve, reject);
             });
         }
-    }
 
     let stream = await navigator.mediaDevices.getUserMedia ({
         video: {
@@ -32,10 +31,12 @@ if (!('getUserMedia' in navigator.mediaDevices)) {
 
     videoPlayer.srcObject = Stream;
     videoPlayer.style.display = 'block';
-    canvasElement.stylre.display = 'none'
+    canvasElement.style.display = 'none'
 }
 
 export function captureImage() {
     canvasElement.style.display = 'block';
-    videoPlayer.style.display
+    videoPlayer.style.display = 'none';
+    captureButton.style.display = 'none';
+    newCaptureButton.style.display = 'block';
 }

@@ -26,7 +26,7 @@ export default function ProductDetail() {
   }
 
   function captureImage() {
-    alert('HELLO');
+    alert('Welcome stalker');
   }
 
   // Check if we are offline (in that case no editing available)
