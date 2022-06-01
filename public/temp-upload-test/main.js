@@ -30,8 +30,13 @@ initializeMedia()
 // a canvas-element. This is to enable the image
 // to be converted into a file
 async function initializeMedia() {
+  
+  
+  function captureimage(){
+  }
   captureButton.style.display = 'block';
   newCaptureButton.style.display = 'none';
+
 
   if (!('mediaDevices' in navigator)) {
     navigator.mediaDevices = {};
