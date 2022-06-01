@@ -55,15 +55,13 @@ export default function ProductDetail() {
       <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 250, height: 150, objectFit: 'contain' }} src={`/images/products/${id}.jpg`} />
       <p>{description}</p>
     </Col></Row>
-    <Row><Col><p>Price: {sweFormat(price)}</p></Col></Row>
+    <Row><Col><p>Pris: {sweFormat(price)}</p></Col></Row>
     <Row><Col>
-      <Link to={`/product-edit/${id}`}>
-        <button type="button" className="my-4 btn btn-primary float-end">Edit</button>
-      </Link>
+      <label > Antal :
+        <input style={{ width: 100 }} type="number" {...localState.bind('buyQuantity')} />
+      </label>
+
     </Col></Row>
-    <Row><Col className="mt-2">
-      <button type="button" onClick={buy} className="btn btn-success float-end">Buy</button>
-      <input style={{ width: 100 }} className="float-end mt-1 me-3" type="number" {...localState.bind('buyQuantity')} />
-    </Col></Row>
+    <Row><Col className="mt-3"><button type="button" onClick={buy} className="btn btn-success float-end">Köp nu</button></Col></Row>
   </Container>
 }
