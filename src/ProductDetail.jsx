@@ -45,7 +45,7 @@ export default function ProductDetail() {
   return <Container className="productList">
     <Row><Col>
       <Link to={`/product-list`}>
-        <button type="button" className="my-4 btn btn-primary">Back to list</button>
+        <button type="button" className="my-4 btn btn-primary">Tillbaka</button>
         <hr />
       </Link>
     </Col></Row>
@@ -62,7 +62,7 @@ export default function ProductDetail() {
       </Link>
     </Col></Row>
     <Row><Col className="mt-2">
-      <button type="button" onClick={buy} className="btn btn-primary float-end">Buy</button>
+      <button type="button" onClick={buy} className="btn btn-success float-end">Buy</button>
       <input style={{ width: 100 }} className="float-end mt-1 me-3" type="number" {...localState.bind('buyQuantity')} />
     </Col></Row>
   </Container>

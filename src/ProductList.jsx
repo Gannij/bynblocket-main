@@ -50,11 +50,14 @@ export default function ProductList() {
   }
 
   return <Container className="productList">
-    <Row><Col><h1>Products</h1></Col></Row>
-    <SearchBar />
-    <Row className="mb-3"><Col><CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col></Row>
-    <Row>
+    <Row><Col><h1>Våra Produkter</h1></Col></Row>
+    <Row className="mb-3"><Col>
+      <h5>Sortera med kategori</h5>
+      <CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} />
+    </Col></Row>
+    <Row className="mb-3">
       <Col>
+        <h5>Sortera med pris</h5>
         <select onChange={(event) => {
           setShowPrice(event.target.value)
         }}>
@@ -65,8 +68,9 @@ export default function ProductList() {
       </Col>
     </Row>
 
-    <Row>
+    <Row className="mb-3">
       <Col>
+        <h5>Sortera med namn</h5>
         <select onChange={(event) => {
           setShowName(event.target.value)
         }}>
@@ -74,6 +78,12 @@ export default function ProductList() {
           <option>A-Ö</option>
           <option>Ö-A</option>
         </select>
+      </Col>
+    </Row>
+    <Row className="mb-3">
+      <Col>
+        <h5>Sök på produkterna</h5>
+        <SearchBar />
       </Col>
     </Row>
     {s.filterproducts.filter(product =>

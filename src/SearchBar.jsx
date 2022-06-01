@@ -13,9 +13,8 @@ const SearchBar = () => {
     }
 
     return (
-        <div style={{ marginLeft: '40%', marginTop: '60px' }}>
+        <div>
             <Autocomplete
-                style={{ width: 500 }}
                 freeSolo
                 autoComplete
                 autoHighlight
@@ -24,7 +23,7 @@ const SearchBar = () => {
                     <TextField {...params}
                         onChange={search}
                         variant="outlined"
-                        label="Search Box"
+                        label="Search for a product"
                     />
                 )}
             />
