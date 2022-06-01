@@ -2,6 +2,7 @@ import { useStates } from './utilities/states';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams, useNavigate } from "react-router-dom";
 import CategorySelect from './CategorySelect';
+import { initializeMedia, captureImage } from './utilities/ImageCapture';
 
 export default function ProductDetail() {
 
@@ -26,7 +27,7 @@ export default function ProductDetail() {
   }
 
   function captureImage() {
-    alert('HELLO');
+    alert('Welcome stalker');
   }
 
   // Check if we are offline (in that case no editing available)
