@@ -5,14 +5,14 @@ import { scrollRestore } from './utilities/scrollBehavior';
 import CategorySelect from './CategorySelect';
 import { sweFormat } from './utilities/currencyFormatter';
 import SearchBar from './SearchBar'
-// import { missingImage } from './utilities/handleMissingImage';
+import { missingImage } from './utilities/handleMissingImage';
 import React, { useState, useEffect } from "react";
 
 export default function ProductList() {
   const [showPrice, setShowPrice] = useState("Billigaste");
 
   let s = useStates('main');
-  
+
   function sortPrice() {
     if (showPrice === "Billigaste") {
       console.log("billigasyet")
@@ -65,8 +65,8 @@ export default function ProductList() {
         <h5>Sortera med pris</h5>
         <select onChange={(event) => {
           setShowPrice(event.target.value);
-  
-          
+
+
         }}>
 
           <option value="Billigaste">Billigaste</option>
