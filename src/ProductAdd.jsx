@@ -15,7 +15,7 @@ export default function ProductDetail() {
 
   let product = useStates({description:"",name:"",price:0,categoryId:1})
 
-  console.log(product)
+  console.log(product) 
 
   async function customAddProduct(obj) {
     let method = 'POST';
