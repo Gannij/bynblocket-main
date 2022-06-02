@@ -15,12 +15,12 @@ export default function ProductList() {
 
   function sortPrice() {
     if (showPrice === "Billigaste") {
-      console.log("billigasyet")
+
       s.products.sort((a, b) => a.price < b.price ? -1 : 1);
-    }
-    if (showPrice === "Dyraste") {
-      console.log("dyraste")
-      s.products.sort((a, b) => a.price < b.price ? 1 : -1);
+      if (showPrice === "Dyraste") {
+
+        s.products.sort((a, b) => a.price < b.price ? 1 : -1);
+      }
     }
 
   }
@@ -39,14 +39,17 @@ export default function ProductList() {
   useEffect(() => {
     sortPrice();
 
+
   }, [showPrice])
   scrollRestore();
+  console.log(showPrice)
 
   useEffect(() => {
     sortName();
 
   }, [showName])
-
+  scrollRestore();
+  console.log(showName)
 
   let navigate = useNavigate();
 
@@ -66,9 +69,7 @@ export default function ProductList() {
         <select onChange={(event) => {
           setShowPrice(event.target.value);
 
-
         }}>
-
           <option value="Billigaste">Billigaste</option>
           <option value="Dyraste">Dyraste</option>
         </select>
@@ -80,10 +81,11 @@ export default function ProductList() {
         <h5>Sortera med namn</h5>
         <select onChange={(event) => {
           setShowName(event.target.value)
+
         }}>
 
-          <option>A-Ö</option>
-          <option>Ö-A</option>
+          <option value="A-Ö">A-Ö</option>
+          <option value="Ö-A">Ö-A</option>
         </select>
       </Col>
     </Row>
