@@ -10,11 +10,16 @@ import React, { useState, useEffect } from "react";
 
 export default function ProductList() {
   const [showPrice, setShowPrice] = useState("Billigaste");
+
+  let s = useStates('main');
+  
   function sortPrice() {
     if (showPrice === "Billigaste") {
+      console.log("billigasyet")
       s.products.sort((a, b) => a.price < b.price ? -1 : 1);
     }
     if (showPrice === "Dyraste") {
+      console.log("dyraste")
       s.products.sort((a, b) => a.price < b.price ? 1 : -1);
     }
 
@@ -42,7 +47,7 @@ export default function ProductList() {
 
   }, [showName])
 
-  let s = useStates('main');
+
   let navigate = useNavigate();
 
   function showDetail(id) {
@@ -59,11 +64,13 @@ export default function ProductList() {
       <Col>
         <h5>Sortera med pris</h5>
         <select onChange={(event) => {
-          setShowPrice(event.target.value)
+          setShowPrice(event.target.value);
+  
+          
         }}>
 
-          <option>Billigaste</option>
-          <option>Dyraste</option>
+          <option value="Billigaste">Billigaste</option>
+          <option value="Dyraste">Dyraste</option>
         </select>
       </Col>
     </Row>

@@ -1,32 +1,69 @@
 import { useStates } from './utilities/states';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams, useNavigate } from "react-router-dom";
+import { FetchHelper } from "./utilities/FetchHelper.js";
 import CategorySelect from './CategorySelect';
+import axios from 'axios';
+import React from 'react';
+ 
 
 export default function ProductDetail() {
-
-  let s = useStates('main');
   let navigate = useNavigate();
 
-  // a local state only for this component
-  let l = useStates({
-    captureMode: true
-  })
+  const [file, setFile] = React.useState();
+  const [fileName, setFileName, id] = React.useState("");
 
-  let product = useStates({
-    captureMode: true
-  })
+  let product = useStates({description:"",name:"",price:0,categoryId:1})
 
-  async function save() {
-    // Save to db
-    await product.save();
-    // Navigate to detail page
-    navigate(`/product-detail/${id}`);
+  console.log(product)
+
+  async function customAddProduct(obj) {
+    let method = 'POST';
+    let result = await (await fetch(`/api/products/`, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(obj)
+    })).json();
+
+    let productID = result.lastInsertRowId;
+
+    if (productID == null)
+    {
+      console.log("BAD ID");
+      return;
+    }
+    // in this particular REST-api the property _errror
+    // signals that things have gone wrong
+    if (result._error) {
+      throw (new Error(result));
+    }
+
+    const formData = new FormData();
+    formData.append("file",file);
+    formData.append("fileName",fileName)
+    formData.append("id",productID)
+    try
+    {
+      const res = await axios.post(
+        "http://localhost:3000/api/upload",
+        formData
+      );
+    }
+    catch(exception)
+    {
+      console.log(exception);
+    }
+
+    alert("Product added")
+    window.location.reload();
   }
 
-  function captureImage() {
-    alert('HELLO');
-  }
+  const saveFile = (e) =>
+  {
+    setFile(e.target.files[0]);
+    setFileName(e.target.files[0].name);
+  };
+
 
   // Check if we are offline (in that case no editing available)
   // console.log("navigator.onLine", navigator.onLine);
@@ -43,9 +80,8 @@ export default function ProductDetail() {
     <Container className='product-edit'>
       {/* Online */}
       <Row><Col>
-        <video style={{ display: l.captureMode ? 'block' : 'none' }} autoPlay></video>
-        <canvas style={{ display: !l.captureMode ? 'block' : 'none' }}></canvas>
-        <button className='btn btn -primary mt-3, mb -5' onClick={(captureImage)}>Capture</button>
+        <input type="file" onChange={saveFile}/>
+        
       </Col></Row>
       <Row><Col><h1></h1></Col></Row>
       <Row><Col><p></p></Col></Row>
@@ -71,6 +107,6 @@ export default function ProductDetail() {
           <CategorySelect bindTo={[product, 'categoryId']} />
         </label>
       </Col></Row>
-      <button type="button" onClick={save} className="my-4 btn btn-primary float-end">Save</button>
+      <button type="button" onClick={() => customAddProduct(product)} className="my-4 btn btn-primary float-end">Save</button>
     </Container>
 }

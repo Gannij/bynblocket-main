@@ -2,7 +2,7 @@ import { useStates } from './utilities/states';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams, useNavigate } from "react-router-dom";
 import CategorySelect from './CategorySelect';
-import { initializeMedia, captureImage } from './utilities/ImageCapture';
+// import { initializeMedia, captureImage } from './utilities/ImageCapture';
 
 export default function ProductDetail() {
 
