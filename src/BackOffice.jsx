@@ -30,7 +30,8 @@ function BackOffice() {
           <button type="button" className="my-4 btn btn-success float-start">Add product</button>
         </Link>
       </Row>
-      {s.filterproducts.filter(product =>
+      {s.products.filter(
+        (product) =>
         s.chosenCategoryId == 0 /*all*/
         || +s.chosenCategoryId === product.categoryId
       ).map(({ id, name, description, price }) =>
