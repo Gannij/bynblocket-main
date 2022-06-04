@@ -4,60 +4,96 @@ import { useNavigate } from "react-router-dom";
 import { scrollRestore } from './utilities/scrollBehavior';
 import CategorySelect from './CategorySelect';
 import { sweFormat } from './utilities/currencyFormatter';
-import SearchBar from './SearchBar'
 import { missingImage } from './utilities/handleMissingImage';
 import React, { useState, useEffect } from "react";
+import { factory } from "./utilities/FetchHelper";
+
+let oldSearchTerm = "";
+
+const { Product, Categorie: Category } = factory;
+
 
 export default function ProductList() {
+  const [searchTerm, setSearchTerm] = useState("");
   const [showPrice, setShowPrice] = useState("Billigaste");
-
-  let s = useStates('main');
-
+  const [showName, setShowName] = useState("");
+  
+  
   function sortPrice() {
     if (showPrice === "Billigaste") {
-
-      s.products.sort((a, b) => a.price < b.price ? -1 : 1);
-      if (showPrice === "Dyraste") {
-
-        s.products.sort((a, b) => a.price < b.price ? 1 : -1);
-      }
+      s.products.sort((a, b) => (a.price < b.price ? -1 : 1));
+    }
+       if (showPrice === "Dyraste") {
+      s.products.sort((a, b) => (a.price < b.price ? 1 : -1));
     }
 
   }
 
-  const [showName, setShowName] = useState("A-Ö");
-  function sortName() {
-    if (showName === "A-Ö") {
-      s.products.sort((a, b) => a.name < b.name ? -1 : 1);
-    }
-    if (showName === "Ö-A") {
-      s.products.sort((a, b) => a.name < b.name ? 1 : -1);
-    }
-  }
-
-
-  useEffect(() => {
-    sortPrice();
-
-
-  }, [showPrice])
+   
   scrollRestore();
-  console.log(showPrice)
-
-  useEffect(() => {
-    sortName();
-
-  }, [showName])
-  scrollRestore();
-  console.log(showName)
-
+  
+  let s = useStates('main');
   let navigate = useNavigate();
 
   function showDetail(id) {
     navigate(`/product-detail/${id}`);
   }
 
-  return <Container className="productList">
+  useEffect(() => {
+    if (searchTerm === "") {
+      return;
+    }
+    if (searchTerm === false) {
+      return;
+    }
+    s.products = s.allProducts.filter((x) =>
+      x.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [searchTerm]);
+
+
+  function sortName() {
+    if (showName === "A-Ö") {
+      s.products.sort((a, b) => (a.name < b.name ? -1 : 1));
+    }
+    if (showName === "Ö-A") {
+      s.products.sort((a, b) => (a.name < b.name ? 1 : -1));
+    }
+  }
+
+  
+
+  useEffect(() => {
+    sortPrice();
+
+
+  }, [showPrice]);
+
+  
+
+  useEffect(() => {
+    sortName();
+
+  }, [showName]);
+
+   useEffect(() => {
+    (async () => {
+      // get the categories from the db
+
+      // get the products from the db
+      s.products = await Product.find();
+      s.categories = await Category.find();
+    })();
+  }, []);
+
+ 
+ 
+
+  
+
+  
+
+  return ( <Container className="productList">
     <Row><Col><h1>Våra Produkter</h1></Col></Row>
     <Row className="mb-3"><Col>
       <h5>Sortera med kategori</h5>
@@ -66,13 +102,18 @@ export default function ProductList() {
     <Row className="mb-3">
       <Col>
         <h5>Sortera med pris</h5>
-        <select onChange={(event) => {
-          setShowPrice(event.target.value);
-
-        }}>
-          <option value="Billigaste">Billigaste</option>
-          <option value="Dyraste">Dyraste</option>
+        <select
+              
+              onChange={(event) => {
+                setShowPrice(event.target.value);
+              }}
+            >
+              <option>Billigaste</option>
+              <option>Dyraste</option>
+              
         </select>
+       
+        
       </Col>
     </Row>
 
@@ -85,18 +126,24 @@ export default function ProductList() {
         }}>
 
           <option value="A-Ö">A-Ö</option>
-          <option value="Ö-A">Ö-A</option>
+          <option>Ö-A</option>
         </select>
       </Col>
     </Row>
     <Row className="mb-3">
       <Col>
         <h5>Sök på produkterna</h5>
-        <SearchBar />
+           <input
+              style={{ height: "25px", width: "19rem" }}
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Sök"
+            />
       </Col>
     </Row>
-    {s.filterproducts.filter(product =>
-      s.chosenCategoryId == 0 /*all*/
+    {s.products.filter(
+      (product) =>
+      +s.chosenCategoryId == 0 /*all*/
       || +s.chosenCategoryId === product.categoryId
     ).map(({ id, name, description, price }) =>
       <Row className="product" key={id} onClick={() => showDetail(id)}>
@@ -113,4 +160,5 @@ export default function ProductList() {
       </Row>
     )}
   </Container>
+    )
 }
